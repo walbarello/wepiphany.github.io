@@ -1,0 +1,765 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Vim - Zero to Hero</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="5f5c8783-b9ea-4fcb-8ecb-b257c9912889" class="page mono"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/nasa_earth_grid.jpg" style="object-position:center 30.000000000000004%"/><h1 class="page-title">Vim - Zero to Hero</h1></header><div class="page-body"><h3 id="97cd0fdc-daaa-4cbf-87c5-11d62648c448" class=""></h3><p id="c5ea7d90-4ff8-4aca-a6af-bbb495699436" class="">🚀 Como utilizar diversos comandos úteis no Vim 🚀</p><p id="9ebb3517-5b29-43ea-86a8-967c633f346a" class="">O Vim é um editor de texto altamente configurável e personalizável, amplamente utilizado por desenvolvedores e programadores. Embora o Vim tenha uma curva de aprendizado íngreme, a habilidade de dominar seus comandos pode aumentar significativamente sua produtividade. Neste artigo, vamos explorar alguns dos comandos mais úteis do Vim e como utilizá-los efetivamente.</p><h2 id="1e806bbb-fe68-4149-bc5b-b289c9fa5b5e" class="">Navegação</h2><p id="e171241f-a6cf-4b4d-9775-a3ac132dfd97" class="">Um dos aspectos mais importantes do Vim é a sua capacidade de navegar rapidamente entre as linhas e palavras em um arquivo. Aqui estão alguns dos comandos de navegação mais úteis:</p><ul id="c28c17db-4df6-425a-9db5-ad749941d45a" class="bulleted-list"><li style="list-style-type:disc"><code>h, j, k, l</code>: movem o cursor para a esquerda, para baixo, para cima e para a direita, respectivamente.</li></ul><ul id="6390bb66-9f0b-4c35-ab05-e87f70a82cac" class="bulleted-list"><li style="list-style-type:disc"><code>w, b</code>: movem o cursor para a próxima palavra e para a palavra anterior, respectivamente.</li></ul><ul id="46a9eea2-c164-4c7a-8e42-dc09711d4a58" class="bulleted-list"><li style="list-style-type:disc"><code>0, $</code>: movem o cursor para o início e para o final da linha, respectivamente.</li></ul><ul id="0f054e03-f56b-45a4-b786-8636b42a8e51" class="bulleted-list"><li style="list-style-type:disc"><code>gg, G</code>: movem o cursor para o início e para o final do arquivo, respectivamente.</li></ul><h2 id="e2ffe711-8267-4792-8616-bf3890250caf" class="">Edição</h2><p id="69b78e46-44ba-40d8-b7c9-47a2ca532c13" class="">Além da navegação, o Vim também oferece uma ampla gama de comandos de edição, que permitem editar e manipular texto de maneira eficiente. Aqui estão alguns dos comandos de edição mais úteis:</p><ul id="2450e5af-a5fe-4afe-a9ca-8f34fa0f812f" class="bulleted-list"><li style="list-style-type:disc"><code>i, a</code>: mudam para o modo de inserção antes e depois do cursor, respectivamente.</li></ul><ul id="c737e20d-536d-46dd-8168-8c1948423caf" class="bulleted-list"><li style="list-style-type:disc"><code>x, dd</code>: apagam o caractere ou a linha atual, respectivamente.</li></ul><ul id="01e6c9df-f1de-41ba-a03c-07030dd44b04" class="bulleted-list"><li style="list-style-type:disc"><code>r</code>: substitui o caractere atual pelo caractere digitado.</li></ul><ul id="97933b9a-6ebb-4f28-9a7c-411ce511916f" class="bulleted-list"><li style="list-style-type:disc"><code>u, Ctrl-r</code>: desfazem e refazem a última ação, respectivamente.</li></ul><h2 id="a365e24e-9147-47b6-bdad-68de6e0df50f" class="">Seleção</h2><p id="c5cc9257-000c-401c-a2ee-de4970a291a0" class="">O Vim também possui comandos úteis para selecionar texto e copiar, recortar e colar trechos de texto. Aqui estão alguns dos comandos de seleção mais úteis:</p><ul id="bfe4aea7-a475-48d9-b47a-585e9babe10d" class="bulleted-list"><li style="list-style-type:disc"><code>v</code>: muda para o modo de seleção visual, permitindo selecionar texto com o cursor.</li></ul><ul id="a4ae3642-c894-4a10-af73-afeaeac4ba2e" class="bulleted-list"><li style="list-style-type:disc"><code>V</code>: seleciona a linha atual inteira.</li></ul><ul id="00f119af-1f42-433f-8b40-ade0c37c02ef" class="bulleted-list"><li style="list-style-type:disc"><code>y, d, p</code>: copiam, recortam e colam o texto selecionado, respectivamente.</li></ul><h2 id="4df4be0f-bc4d-4d3e-869c-e69be044690a" class="">Pesquisa</h2><p id="0555b820-e606-438b-bb04-d111c5de73c9" class="">Por fim, o Vim oferece um conjunto de comandos para pesquisar texto em um arquivo. Aqui estão alguns dos comandos de pesquisa mais úteis:</p><ul id="96455a01-a5b6-4900-9395-18f2d7f206b6" class="bulleted-list"><li style="list-style-type:disc"><code>/</code>: pesquisa o texto para frente no arquivo.</li></ul><ul id="0a8e5b0d-a240-4610-bf8b-26731027e657" class="bulleted-list"><li style="list-style-type:disc"><code>?</code>: pesquisa o texto para trás no arquivo.</li></ul><ul id="60fa9a5d-f5ff-4ba9-96e1-be9712ebaa88" class="bulleted-list"><li style="list-style-type:disc"><code>n, N</code>: navegam para a próxima e para a anterior ocorrência da pesquisa, respectivamente.</li></ul><h2 id="6aeb0740-d085-42db-a8db-b9474acb200b" class="">Técnicas</h2><p id="819fb5b3-25ba-4839-bce9-acbff2001a99" class="">Existem várias técnicas que podem ser utilizadas para melhorar ainda mais a eficiência do Vim. Aqui estão duas técnicas que podem ser úteis:</p><h3 id="a2160285-8c0d-41dd-b433-aa51d1a6812b" class="">Macros</h3><p id="8e9ccb98-c4e0-44f1-b5ae-aa3290e76f1a" class="">As macros permitem gravar uma série de comandos do Vim e executá-los em um único comando. Para gravar uma macro, use <code>q</code> seguido de uma letra para nomear a macro. Em seguida, execute uma série de comandos do Vim. Para executar a macro, use <code>@</code> seguido da letra da macro. Por exemplo, para gravar uma macro na letra <code>a</code> que apaga uma linha e insere a linha &quot;Hello World!&quot;, você pode usar os seguintes comandos:</p><pre id="55452b32-62da-404b-b594-22203648db95" class="code code-wrap"><code>qa
+dd
+iHello World!
+&lt;Esc&gt;
+q
+</code></pre><p id="a3a75b79-c896-4f33-8c09-768b13d2ca3d" class="">Para executar a macro da letra <code>a</code>, use <code>@a</code>.</p><h3 id="7b9789d5-00f2-4101-b271-93bb866229ac" class="">Comandos externos</h3><p id="dffb439c-d61a-4263-b647-63d78cd73dd8" class="">O Vim também permite executar comandos externos diretamente no editor. Para executar um comando externo, use <code>:!</code> seguido do comando que deseja executar. Por exemplo, para executar o comando ls e exibir a saída em um buffer do Vim, use <code>:!ls</code>.</p><h1 id="1be4bd27-9073-4ad9-acd7-bf8d43db2972" class="">expressões regulares básicas para o cotidiano</h1><p id="d573704f-2597-4c27-9d70-e28200f75448" class="">🔍 Expressões Regulares no Vim</p><ol type="1" id="65a6a957-f085-4767-9880-e2aee9ad04d3" class="numbered-list" start="1"><li>🧐 Procurar a palavra &quot;python&quot; no início da linha:</li></ol><pre id="98a6303c-8b09-4642-96c9-3cda2cdc0d33" class="code code-wrap"><code>/^python
+
+</code></pre><pre id="ab8e2b6a-4016-4c64-b6a8-45d1b930bd71" class="code code-wrap"><code>import re
+re.search(r&#x27;^python&#x27;, texto)
+
+</code></pre><ol type="1" id="417b254b-43d2-416a-8a63-ccce73e1dc20" class="numbered-list" start="1"><li>🕵️‍♀️ Procurar a palavra &quot;python&quot; em qualquer lugar da linha:</li></ol><pre id="09ea6664-20a6-4217-b401-21649af44cad" class="code code-wrap"><code>import re
+re.search(r&#x27;python&#x27;, texto)
+
+</code></pre><ol type="1" id="eddfe590-c82c-4426-b24d-b2f3e883e664" class="numbered-list" start="1"><li>🔎 Procurar uma palavra que começa com &quot;a&quot; e termina com &quot;o&quot;:</li></ol><pre id="75ecd6e0-bdea-4ad4-b7e7-bf7cb5e4976f" class="code code-wrap"><code>/a.*o
+
+</code></pre><pre id="37e253e3-58b4-4c8a-aceb-0835ff180925" class="code code-wrap"><code>import re
+re.search(r&#x27;a.*o&#x27;, texto)
+
+</code></pre><ol type="1" id="5276173e-fdbd-4df7-97a1-b9ee5fd80771" class="numbered-list" start="1"><li>🕵️‍♂️ Procurar uma palavra que começa com uma letra minúscula seguida de 2 dígitos:</li></ol><pre id="08b3d47c-781c-4527-8287-b51d9ed7985c" class="code code-wrap"><code>/[a-z]\d\d
+
+</code></pre><pre id="45b443f1-5e24-4fae-b388-aa9ac5499103" class="code code-wrap"><code>import re
+re.search(r&#x27;[a-z]\d\d&#x27;, texto)
+
+</code></pre><ol type="1" id="736e9620-946d-41f6-865d-43d36b7b9396" class="numbered-list" start="1"><li>🔍 Procurar uma palavra que começa com uma letra maiúscula:</li></ol><pre id="e2fe6e46-7235-4965-b36e-55a92e830d81" class="code code-wrap"><code>/[A-Z][a-z]*
+
+</code></pre><pre id="b5204e15-3f08-487d-9225-dca7ea21e1cb" class="code code-wrap"><code>import re
+re.search(r&#x27;[A-Z][a-z]*&#x27;, texto)
+
+</code></pre><ol type="1" id="195777de-232d-49ce-a2de-1593de2c44d3" class="numbered-list" start="1"><li>🕵️‍♀️ Procurar uma palavra que começa com &quot;python&quot; e termina com &quot;3&quot;:</li></ol><pre id="865f845a-9447-48a3-a86b-649cb20d3854" class="code code-wrap"><code>/python.*3$
+
+</code></pre><pre id="12b13ed3-6e2b-4e01-8618-84da492163ea" class="code code-wrap"><code>import re
+re.search(r&#x27;python.*3$&#x27;, texto)
+
+</code></pre><ol type="1" id="549205aa-d294-44ab-b166-74634b884f20" class="numbered-list" start="1"><li>🔎 Procurar uma palavra que não começa com uma letra maiúscula:</li></ol><pre id="a463afc2-761c-49cf-950b-b3d483b361f6" class="code code-wrap"><code>/^[^A-Z][a-z]*
+
+</code></pre><pre id="279b0877-65a4-4743-aa88-1f348f9a64b1" class="code code-wrap"><code>import re
+re.search(r&#x27;^[^A-Z][a-z]*&#x27;, texto)
+
+</code></pre><ol type="1" id="b87a76cb-6777-4315-803f-aa70588bb2c8" class="numbered-list" start="1"><li>🕵️‍♂️ Procurar uma palavra que começa com &quot;py&quot; ou &quot;j&quot; e termina com &quot;hon&quot;:</li></ol><pre id="df8ac0cd-9ec0-4501-8ea9-36f340c5acb0" class="code code-wrap"><code>/\(py\|j\)thon
+
+</code></pre><pre id="d95e9987-6f56-4805-8eef-8d5426e7134a" class="code code-wrap"><code>import re
+re.search(r&#x27;(py|j)thon&#x27;, texto)
+
+</code></pre><ol type="1" id="ff407f0d-30c2-44a4-a457-dbf863a31fff" class="numbered-list" start="1"><li>🔍 Procurar uma palavra que contém apenas letras minúsculas:</li></ol><pre id="05e6b8df-a1ea-42fe-888b-4ceb4b3460fe" class="code code-wrap"><code>/[a-z]\+
+
+</code></pre><pre id="ae51f0af-27cb-42cc-ab28-e9077a45e2a7" class="code code-wrap"><code>import re
+re.search(r&#x27;[a-z]+&#x27;, texto)
+
+</code></pre><p id="d97b8309-79e0-4197-971a-3c2ae8deaae9" class="">🔍 10 Expressões Regulares no Vim, com Códigos em Python</p><ol type="1" id="8a64db95-5b33-4d63-9c6f-7742e5d8e82c" class="numbered-list" start="1"><li>🕵️‍♀️ Encontrar todas as palavras que começam com &quot;a&quot; e terminam com &quot;o&quot;</li></ol><pre id="9aed689c-61fd-452f-ae9d-d475cf3f16aa" class="code code-wrap"><code>/\&lt;a\S*o\&gt;
+
+</code></pre><pre id="a8ffce2a-358e-43aa-9518-7604c676d9c2" class="code code-wrap"><code>import re
+re.findall(r&#x27;\ba\S*o\b&#x27;, texto)
+# Vamos pegar todas as palavras &quot;a X o&quot;, desde que não contenham espaços em branco no meio.
+
+</code></pre><ol type="1" id="640c7394-8181-486a-be97-8b092cd08321" class="numbered-list" start="1"><li>🔎 Encontrar todas as palavras que contém a letra &quot;x&quot; e têm comprimento maior ou igual a 5</li></ol><pre id="71752f61-5bd1-433c-8a7f-5ebd06590346" class="code code-wrap"><code>/\&lt;\w*x\w\{4,\}\&gt;
+
+</code></pre><pre id="5ed274d3-e99e-4392-ae83-c1400420049c" class="code code-wrap"><code>import re
+re.findall(r&#x27;\b\w*x\w{4,}\b&#x27;, texto)
+# Precisamos de palavras com &quot;x&quot; no meio e pelo menos 5 letras, caso contrário é uma palavra muito pequena para nós.
+
+</code></pre><ol type="1" id="48196344-1d66-424a-8ce2-9329eac70449" class="numbered-list" start="1"><li>🕵️‍♂️ Encontrar todas as palavras que começam com uma letra maiúscula</li></ol><pre id="7e19b53b-232e-41cd-9e7f-9932eb2a9a22" class="code code-wrap"><code>/\&lt;[A-Z]\w*\&gt;
+
+</code></pre><pre id="da3eaf2d-0c95-49db-8b1c-043446a38b47" class="code code-wrap"><code>import re
+re.findall(r&#x27;\b[A-Z]\w*\b&#x27;, texto)
+# Não estamos interessados em palavras que não começam com uma letra maiúscula. Somos uma classe elitista.
+
+</code></pre><ol type="1" id="9788826e-610f-4be7-be47-58f7f84c0917" class="numbered-list" start="1"><li>🔍 Encontrar todas as palavras que terminam com &quot;ing&quot;</li></ol><pre id="38ccf7b0-8eba-4d9b-a237-06b92a5a0b5b" class="code code-wrap"><code>/\&lt;\w*ing\&gt;
+
+</code></pre><pre id="0dba4905-c610-453a-a797-2fbc66614e65" class="code code-wrap"><code>import re
+re.findall(r&#x27;\b\w*ing\b&#x27;, texto)
+# Porque &quot;ing&quot; é o que todos os bons verbos fazem.
+
+</code></pre><ol type="1" id="c255fec8-d7b7-483d-854d-55f2a874f1f8" class="numbered-list" start="1"><li>🕵️‍♀️ Encontrar todas as ocorrências de números com mais de 3 dígitos</li></ol><pre id="0e0186ea-a6ba-4240-b66b-84cafc5a7623" class="code code-wrap"><code>/\d\{4,}
+
+</code></pre><pre id="24f7ac3a-8419-4e8a-9c77-cd45f5d4f19f" class="code code-wrap"><code>import re
+re.findall(r&#x27;\d{4,}&#x27;, texto)
+# O número 1000 ainda é um bebê, estamos procurando números maiores e mais maduros.
+
+</code></pre><ol type="1" id="badb0330-cb53-4c66-bf88-c43b1ae5ed5d" class="numbered-list" start="1"><li>🔎 Encontrar todas as palavras que contém exatamente 4 letras</li></ol><pre id="7c58d145-3f6c-4de6-b15d-8b477df87186" class="code code-wrap"><code>/\&lt;\w\{4}\&gt;
+
+</code></pre><pre id="8cb67a58-cb6a-446a-8c2f-d6466b84dec0" class="code code-wrap"><code>import re
+re.findall(r&#x27;\b\w{4}\b&#x27;, texto)
+# Não temos tempo para palavras muito longas ou muito curtas. Quatro letras são o tamanho perfeito.
+
+</code></pre><ol type="1" id="0d167fec-198a-47f9-9991-8e4b7d3135f4" class="numbered-list" start="1"><li>🕵️‍♂️ Encontrar todas as palavras que contém exatamente uma letra &quot;z&quot;</li></ol><pre id="ad46d004-b456-4d2e-adc9-14c9418b9ab2" class="code code-wrap"><code>/\&lt;\w*z\w*\&gt;
+
+</code></pre><pre id="2f9b280f-b12d-4d5c-9c57-e4aced24ce2d" class="code code-wrap"><code>import re
+re.findall(r&#x27;\b\w*z\w*\b&#x27;, texto)
+# Não precisamos de mais do que uma letra &quot;z&quot; em uma palavra. Uma é suficiente para nós.
+
+</code></pre><ol type="1" id="1d1714a0-a62d-43aa-a3cc-e0420693a631" class="numbered-list" start="1"><li>🔍 Encontrar todas as palavras que contém exatamente duas vogais em ordem</li></ol><pre id="c2accfde-177d-430a-8f89-9d1933137f8e" class="code code-wrap"><code>/\&lt;[aeiou][^aeiou]*[aeiou][^aeiou]*\&gt;
+
+</code></pre><pre id="affe3a30-671c-4838-a7d7-0bde5d292d47" class="code code-wrap"><code>import re
+re.findall(r&#x27;\b[aeiou][^aeiou]*[aeiou][^aeiou]*\b&#x27;, texto)
+# Duas vogais em ordem é o nosso tipo de palavras. O resto é apenas barulho.
+
+</code></pre></div></article></body></html>
